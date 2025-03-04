@@ -1,6 +1,8 @@
-import { motion } from "framer-motion";
+'use client';
 
-const team = [
+import Image from 'next/image';
+
+const teamMembers = [
     {
         name: "张峰",
         position: "技术总监",
@@ -33,42 +35,35 @@ const team = [
 
 export default function TeamSection() {
     return (
-        <section className="py-20">
+        <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
-                <motion.div 
-                    initial={{opacity:0,y:20}} 
-                    whileInView={{opacity:1,y:0}} 
-                    viewport={{once:true}} 
-                    transition={{duration:0.6}} 
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">核心团队</h2>
-                    <div className="w-20 h-1 bg-primary mx-auto"></div>
-                </motion.div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {team.map((member, index) => (
-                        <motion.div 
-                            key={member.name}
-                            initial={{opacity:0,y:20}}
-                            whileInView={{opacity:1,y:0}}
-                            viewport={{once:true}}
-                            transition={{duration:0.6,delay:index*0.1}}
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl font-bold mb-4">我们的团队</h2>
+                    <p className="text-gray-600">
+                        专业的团队是我们最大的优势
+                    </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {teamMembers.map((member, index) => (
+                        <div
+                            key={index}
                             className="bg-white rounded-lg shadow-lg overflow-hidden"
                         >
-                            <div className="aspect-w-1 aspect-h-1">
-                                <img 
-                                    src={member.image} 
-                                    alt={member.name} 
-                                    className="object-cover w-full h-full"
+                            <div className="relative h-64">
+                                <Image
+                                    src={member.image}
+                                    alt={member.name}
+                                    fill
+                                    className="object-cover"
                                 />
                             </div>
                             <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                                <p className="text-primary font-medium mb-2">{member.position}</p>
-                                <p className="text-gray-600 mb-4">{member.expertise}</p>
-                                <p className="text-sm text-gray-500 whitespace-pre-line">{member.achievements}</p>
+                                <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                                <p className="text-blue-600 mb-4">{member.position}</p>
+                                <p className="text-gray-600">{member.achievements}</p>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

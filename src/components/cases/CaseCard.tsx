@@ -1,1 +1,56 @@
-import { useState } from "react";import { motion } from "framer-motion";interface CaseCardProps{title:string;category:string;description:string;image:string;videoUrl:string;}export default function CaseCard({title,category,description,image,videoUrl}:CaseCardProps){const[isHovered,setIsHovered]=useState(false);return(<motion.div className="bg-white rounded-lg shadow-lg overflow-hidden" onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)} whileHover={{y:-5}}><div className="relative aspect-w-16 aspect-h-9"><img src={image} alt={title} className="object-cover w-full h-full"/>{isHovered&&(<div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"><a href={videoUrl} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">观看视频</a></div>)}</div><div className="p-6"><span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm mb-4">{category}</span><h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3><p className="text-gray-600">{description}</p></div></motion.div>);}
+'use client';
+
+import { useState } from "react";
+
+interface CaseCardProps {
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  videoUrl: string;
+}
+
+export default function CaseCard({
+  title,
+  category,
+  description,
+  image,
+  videoUrl
+}: CaseCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className="relative overflow-hidden rounded-lg bg-white shadow-lg"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="aspect-w-16 aspect-h-9">
+        {isHovered ? (
+          <video
+            src={videoUrl}
+            autoPlay
+            loop
+            muted
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <img
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover"
+          />
+        )}
+      </div>
+      <div className="p-4">
+        <div className="mb-2">
+          <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800">
+            {category}
+          </span>
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+        <p className="mt-2 text-gray-600">{description}</p>
+      </div>
+    </div>
+  );
+}

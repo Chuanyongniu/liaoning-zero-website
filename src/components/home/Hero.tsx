@@ -1,1 +1,46 @@
-import { motion } from "framer-motion";const slides=[{id:1,title:"数字技术创新引领者",description:"致力于为企业提供领先的数字化解决方案",image:"/images/hero-1.jpg"},{id:2,title:"智能制造的革新力量",description:"用科技赋能传统产业，推动智能制造升级",image:"/images/hero-2.jpg"}];export default function Hero(){return(<div className="relative h-screen">{slides.map((slide)=>(<motion.div key={slide.id} className="absolute inset-0"><div className="relative h-full"><div className="absolute inset-0 bg-black/50 z-10"/><div className="absolute inset-0 bg-cover bg-center z-0" style={{backgroundImage:`url(${slide.image})`}}/><div className="relative z-20 h-full flex items-center justify-center text-white"><div className="text-center space-y-6 max-w-4xl px-4"><h1 className="text-5xl md:text-7xl font-bold">{slide.title}</h1><p className="text-xl md:text-2xl">{slide.description}</p></div></div></div></motion.div>))}</div>);}
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+export default function Hero() {
+  return (
+    <section className="relative h-screen flex items-center">
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Hero Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            智能制造的引领者
+          </h1>
+          <p className="text-xl text-white mb-8">
+            辽宁壹零致力于为企业提供先进的自动化设备和智能化系统解决方案
+          </p>
+          <div className="flex space-x-4">
+            <Link
+              href="/product"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+            >
+              了解产品
+            </Link>
+            <Link
+              href="/contact"
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition duration-300"
+            >
+              联系我们
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

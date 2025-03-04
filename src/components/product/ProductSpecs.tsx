@@ -1,4 +1,22 @@
-import { motion } from "framer-motion";
+'use client';
+
+const defaultSpecs = [
+  { name: "测量范围", value: "0-100mm" },
+  { name: "精度", value: "±0.01mm" },
+  { name: "分辨率", value: "0.001mm" },
+  { name: "工作温度", value: "10-40℃" },
+  { name: "电源", value: "可充电锂电池" },
+  { name: "重量", value: "约500g" }
+];
+
+interface Spec {
+  name: string;
+  value: string;
+}
+
+interface ProductSpecsProps {
+  specs?: Spec[];
+}
 
 const specifications = {
     基本参数: {
@@ -20,50 +38,21 @@ const specifications = {
     ]
 };
 
-export default function ProductSpecs() {
-    return (
-        <div className="space-y-8">
-            {Object.entries(specifications).map(([category, specs], index) => (
-                <motion.div 
-                    key={category}
-                    initial={{opacity:0,y:20}}
-                    animate={{opacity:1,y:0}}
-                    transition={{delay:index*0.1}}
-                >
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">{category}</h2>
-                    {Array.isArray(specs) ? (
-                        <ul className="grid grid-cols-2 gap-4">
-                            {specs.map((spec) => (
-                                <li key={spec} className="flex items-center space-x-2">
-                                    <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                                    </svg>
-                                    <span className="text-gray-600">{spec}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <dl className="grid grid-cols-2 gap-4">
-                            {Object.entries(specs).map(([key, value]) => (
-                                <div key={key}>
-                                    <dt className="text-gray-600">{key}</dt>
-                                    <dd className="font-medium text-gray-900">{value}</dd>
-                                </div>
-                            ))}
-                        </dl>
-                    )}
-                </motion.div>
-            ))}
-            <motion.div 
-                initial={{opacity:0,y:20}}
-                animate={{opacity:1,y:0}}
-                transition={{delay:0.4}}
-                className="pt-8"
-            >
-                <a href="#contact" className="inline-block bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors">
-                    咨询详情
-                </a>
-            </motion.div>
-        </div>
-    );
+export default function ProductSpecs({ specs = defaultSpecs }: ProductSpecsProps) {
+  return (
+    <div className="mt-8">
+      <h3 className="text-lg font-semibold mb-4">产品规格</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {specs.map((spec) => (
+          <div
+            key={spec.name}
+            className="p-4 bg-gray-50 rounded-lg transform transition-all duration-300 hover:scale-105"
+          >
+            <div className="font-medium text-gray-900">{spec.name}</div>
+            <div className="mt-1 text-gray-500">{spec.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
