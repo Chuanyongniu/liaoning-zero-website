@@ -1,0 +1,1 @@
+import Hero from "@/components/home/Hero";import CompanyIntro from "@/components/home/CompanyIntro";import TeamSection from "@/components/home/TeamSection";export default function Home(){return(<div className="flex flex-col gap-16"><Hero/><CompanyIntro/><TeamSection/></div>);}
